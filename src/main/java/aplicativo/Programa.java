@@ -12,11 +12,16 @@ public class Programa {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
 		EntityManager em = emf.createEntityManager();
 		
-//		Finding a object on database by Id:
-		Pessoa p1 = em.find(Pessoa.class, 1);
+//		Deleting a object on database:
+		Pessoa p1 = em.find(Pessoa.class, 3);
 		
-		System.out.println(p1);
+//		We need open a transaction
+		em.getTransaction().begin();
+
+		em.remove(p1);
 		
+//		Closing the transaction
+		em.getTransaction().commit();
 
 		em.close();
 		emf.close();
