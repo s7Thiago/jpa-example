@@ -8,26 +8,18 @@ import dominio.Pessoa;
 
 public class Programa {
 	public static void main(String[] args) {
-		
-//		The id is unnecessary because the database will automatically create this
-		Pessoa p1 = new Pessoa(null, "Ana", "Ana@email.com");
-		Pessoa p2 = new Pessoa(null, "Bernardo", "Bernardo@email.com");
-		Pessoa p3 = new Pessoa(null, "Carlos", "Carlos@email.com");
-		
 //		Instantiating the EntityManager
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
 		EntityManager em = emf.createEntityManager();
 		
-//		Is required start a transaction
-		em.getTransaction().begin();
+//		Finding a object on database by Id:
+		Pessoa p1 = em.find(Pessoa.class, 1);
 		
-//		Persisting the objects
-		em.persist(p1);
-		em.persist(p2);
-		em.persist(p3);
+		System.out.println(p1);
 		
-//		Closing the transaction
-		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 		
 		System.out.println("Operations OK!");
 
